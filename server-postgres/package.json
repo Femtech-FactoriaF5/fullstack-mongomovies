@@ -6,7 +6,8 @@
     "node": "18.x"
   },
   "scripts": {
-    "start": "ts-node",
+    "start:dev": "ts-node",
+    "start":"node .",
     "test": "jest --watch --verbose ",
     "build": "tsc --build"
   },
