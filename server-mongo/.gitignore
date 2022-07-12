@@ -1,0 +1,4 @@
+node_modules
+.env
+
+mongoimport --uri mongodb+srv://movie:1234@cluster0.pu8lus7.mongodb.net movies --collection movies --file movies.json
