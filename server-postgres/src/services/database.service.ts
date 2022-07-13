@@ -1,7 +1,14 @@
 import { Pool } from 'pg';
 import { uri as connectionString} from '../config';
 
-
+const config = {
+    connectionString,
+    // Beware! The ssl object is overwritten when parsing the connectionString
+    ssl: {
+      rejectUnauthorized: false,
+    // //   ca: fs.readFileSync('/path/to/server-certificates/root.crt').toString(),
+    },
+  }
 
 class Database {
 
@@ -36,4 +43,4 @@ class Database {
     }
 }
 
-export default new Database({connectionString});
+export default new Database(config);
