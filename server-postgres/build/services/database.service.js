@@ -11,6 +11,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const pg_1 = require("pg");
 const config_1 = require("../config");
+const config = {
+    connectionString: config_1.uri,
+    // Beware! The ssl object is overwritten when parsing the connectionString
+    ssl: {
+        rejectUnauthorized: false,
+        // //   ca: fs.readFileSync('/path/to/server-certificates/root.crt').toString(),
+    },
+};
 class Database {
     constructor(config) {
         this.client = new pg_1.Pool(config);
@@ -47,4 +55,4 @@ class Database {
         });
     }
 }
-exports.default = new Database({ connectionString: config_1.uri });
+exports.default = new Database(config);

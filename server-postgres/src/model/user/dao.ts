@@ -10,7 +10,7 @@ class UserDAO {
     // const values = Object.values(user);
     const values = [user.email,user.password,user.name];
     const result = await database.query(queryStr, values);
-    console.log(result.rows[0])
+
     return result?.rows[0];
   }
 
