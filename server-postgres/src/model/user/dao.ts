@@ -1,5 +1,5 @@
 
-import database from '../../services/database.service';
+import database from '../../database.service';
 import User from "./model";
 
 class UserDAO {

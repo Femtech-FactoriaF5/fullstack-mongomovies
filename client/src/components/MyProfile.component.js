@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react';
 const MyProfile = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
     useEffect(() => {
+        
         setLoggedInUser(localStorage.getItem('token') || null);
         window.addEventListener('storage', storageEventHandler, false)
 

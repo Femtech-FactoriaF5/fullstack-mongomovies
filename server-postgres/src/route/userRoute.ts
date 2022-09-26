@@ -1,5 +1,5 @@
 import Router from 'express';
-import {userController} from '../controller/userController';
+import {userController} from '../controller/user/userController';
 import auth from '../middleware/authentication/authHandler';
 import jwt from '../middleware/authentication/jwtHandler';
 

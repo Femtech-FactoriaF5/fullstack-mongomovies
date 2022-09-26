@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response} from "express";
-import {Movie} from "../model/movie";
-import {movieDAO} from '../model/movie';
+import createHttpError from "http-errors";
+import {Movie} from "../../model/movie";
+import {movieDAO} from '../../model/movie';
 
-const movieController = async (req:Request,res:Response, next:NextFunction)=>{
+const getAllMovies = async (req:Request,res:Response, next:NextFunction)=>{
 
 
     try {
@@ -10,7 +11,7 @@ const movieController = async (req:Request,res:Response, next:NextFunction)=>{
 
             result
                 ? res.status(201).json(result)
-                : res.status(500).send("Failed to create a new user.");
+                : next(createHttpError(400,'Nothing to Show'));
 
     } catch (error: any) {
 
@@ -19,4 +20,4 @@ const movieController = async (req:Request,res:Response, next:NextFunction)=>{
     }
 }
 
-export default movieController;
+export default getAllMovies;

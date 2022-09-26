@@ -1,9 +1,9 @@
 import Router from 'express';
-import { userController } from '../controller/userController';
+import { login,register } from '../controller/auth';
 import auth from '../middleware/authentication/authHandler';
 import { getAccessFromGoogle } from '../middleware/authentication/googleAuthHandler';
 
-const { login } = userController;
+
 const { validateUser } = auth;
 
 

@@ -1,14 +1,31 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {GoogleOAuthProvider,GoogleLogin} from '@react-oauth/google';
 
 const Home = () => {
 
+  const [experiencias,setExperiencias]=useState([]);
   const [token,setToken]=useState('')
   const [error,setError] =useState('');
   const navigate = useNavigate();
+
+  useEffect( ()=> {
+    const fetchData = async ()=>{
+    try {
+      const result = await axios.get('https://econotravel-legacy-server.herokuapp.com/experiences',
+        );
+
+      setExperiencias(result.data);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  fetchData();
+},[])
+
   const handleLogin = async googleData => {
     try {
       const url=process.env.REACT_APP_API_BASE_URL.concat(['/login/google']);
@@ -22,7 +39,6 @@ const Home = () => {
         method:'POST',
         headers: {
           'Access-Control-Allow-Origin': '*',
-          'origin':'x-requested-with',
           'Access-Control-Allow-Headers': 'POST, GET, PUT, DELETE, OPTIONS, HEAD, Authorization, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Allow-Origin',
           'Content-Type': 'application/json',
       },
@@ -30,7 +46,7 @@ const Home = () => {
            token: googleData.credential
 
       })})
-      
+
         if(res.data.token){
 
       setToken(res.data.token)
@@ -56,6 +72,8 @@ const Home = () => {
         }}
       />
       </GoogleOAuthProvider>
+
+      {JSON.stringify(experiencias)}
       </>
   );
 };

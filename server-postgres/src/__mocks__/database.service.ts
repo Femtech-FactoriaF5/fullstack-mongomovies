@@ -1,25 +1,30 @@
+// import { Pool as typePool } from 'pg';
 import { Pool } from 'pg';
+import { newDb } from 'pg-mem';
 import { uri as connectionString} from '../config';
 
 const config = {
     connectionString,
     // Beware! The ssl object is overwritten when parsing the connectionString
     ssl: {
-      rejectUnauthorized: false,
-    // //   ca: fs.readFileSync('/path/to/server-certificates/root.crt').toString(),
+        rejectUnauthorized: false,
+        // //   ca: fs.readFileSync('/path/to/server-certificates/root.crt').toString(),
     },
-  }
+}
+const pg = newDb().adapters.createPg()
 
 class Database {
 
-    client: Pool;
+    client:Pool ;
+    config:any ;
     constructor(config: any) {
-        this.client = new Pool(config);
-        console.log('Connecting to PostgreSQL...');
+        this.config=config;
+        this.client = new pg.Pool(config);
+        console.log('Connecting to pg-mem...');
     }
     async connect() {
         try {
-            this.client.connect();
+            await this.client.connect();
             // console.log('Successfully connected to MongoDB Atlas!');
         } catch (error) {
             console.error('Connection to Postgres failed!', error);
